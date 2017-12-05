@@ -1,4 +1,4 @@
-package br.com.atech.voo.service;
+package br.com.atech.voo.servico;
 
 import org.springframework.stereotype.Component;
 

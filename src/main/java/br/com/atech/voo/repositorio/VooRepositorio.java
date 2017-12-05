@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import br.com.atech.voo.dominio.Voo;
+import br.com.atech.voo.entidade.Voo;
 
 @Repository
 public class VooRepositorio {

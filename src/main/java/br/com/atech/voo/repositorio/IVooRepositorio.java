@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import br.com.atech.voo.dominio.Voo;
+import br.com.atech.voo.entidade.Voo;
 
 public interface IVooRepositorio extends CrudRepository<Voo, Integer>{
 

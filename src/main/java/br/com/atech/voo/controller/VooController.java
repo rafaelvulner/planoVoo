@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.atech.voo.dominio.Status;
-import br.com.atech.voo.dominio.Voo;
-import br.com.atech.voo.service.VooService;
+import br.com.atech.voo.entidade.Status;
+import br.com.atech.voo.entidade.Voo;
+import br.com.atech.voo.servico.VooService;
 
 @RestController
-public class HomeController {
+public class VooController {
 
 	@Autowired
 	private VooService service;

@@ -1,4 +1,4 @@
-package br.com.atech.voo.dominio;
+package br.com.atech.voo.entidade;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
