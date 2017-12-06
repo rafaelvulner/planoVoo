@@ -26,7 +26,7 @@ public class VooRepositorio {
 	}
 
 	public void remover(Voo voo) {
-		dao.delete(voo);
+		dao.delete(voo.getCod());
 	}
 	
 	public Voo buscarVoo(Voo voo){			

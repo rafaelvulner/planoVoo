@@ -9,16 +9,6 @@ public class TestePrincipal {
 
 	public static void main(String[] args) {
 		
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
-		
-		Date c = new Date();
-		
-		System.out.println(dateFormat.format(c));
-		
-		
-		
-		
-
 	}
 
 }
