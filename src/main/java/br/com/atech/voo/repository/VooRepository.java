@@ -1,35 +1,35 @@
-package br.com.atech.voo.repositorio;
+package br.com.atech.voo.repository;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import br.com.atech.voo.entidade.Voo;
+import br.com.atech.voo.domain.Voo;
 
 @Repository
-public class VooRepositorio {
+public class VooRepository {
 
 	@Autowired
-	private IVooRepositorio dao;
+	private IVooRepository dao;
 
-	public void salvar(Voo voo) {
+	public void save(Voo voo) {
 		dao.save(voo);
 	}
 
-	public void atualizar(Voo voo) {
+	public void update(Voo voo) {
 		dao.save(voo);
 	}
 
-	public List<Voo> buscarTodos() {
+	public List<Voo> findAll() {
 		return dao.findAll();
 	}
 
-	public void remover(Voo voo) {
+	public void remove(Voo voo) {
 		dao.delete(voo.getCod());
 	}
 	
-	public Voo buscarVoo(Voo voo){			
+	public Voo findOne(Voo voo){			
 	
 		return dao.findOne(voo.getCod());
 	}

@@ -1,8 +1,7 @@
 package br.com.atech.voo.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.atech.voo.entidade.Status;
-import br.com.atech.voo.entidade.Voo;
-import br.com.atech.voo.servico.VooService;
+import br.com.atech.voo.domain.Status;
+import br.com.atech.voo.domain.Voo;
+import br.com.atech.voo.service.VooService;
 
 @RestController
 public class VooController {
@@ -23,69 +22,59 @@ public class VooController {
 	private VooService service;
 
 	/**
-	 * Rest saida do avião
+	 * Rest Exit in the voo
 	 * @param voo
 	 * @param response
 	 */
-	@RequestMapping(value = "/saida", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void saida(@RequestBody Voo voo) {
-		//FORMATA AS HORAS NO FORMATO SIMPLES
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+	@RequestMapping(value = "/exit", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void exit(@RequestBody Voo voo) {		
 		
-		//SETA O ESTADO DO AVIÃO QUANDO ELE PARTE
-		voo.setStatus(Status.VOANDO);
+		LocalDateTime hour = LocalDateTime.now();		
 		
-		//SETA O HORARIO DE PARTIDA
-		voo.setHoraPartida(dateFormat.format(Calendar.getInstance().getTime()));
-
-		//SALVA NA BASE 
-		service.salvar(voo);
+		voo.setStatus(Status.VOANDO);		
+		
+		voo.setHoraPartida(hour.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+		
+		service.save(voo);
 
 	}
 
 	/**
-	 * Rest para chegada do avião
+	 * Rest to check-in one voo
 	 * @param voo
 	 */
-	@RequestMapping(value = "/chegada", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void chegada(@RequestBody Voo voo) {				
+	@RequestMapping(value = "/checkIn", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void checkIn(@RequestBody Voo voo) {		
 		
-		//FORMATA AS HORAS NO FORMATO SIMPLES
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");	
+		LocalDateTime hour = LocalDateTime.now();		
 		
-		//BUSCA O HORARIO QUE O AVIÃO PARTIU PARA ATUALIZAR A TABELA COM HORARIO DE PARTIDA E CHEGADA
-		voo.setHoraPartida(service.buscarVoo(voo).getHoraPartida());
+		voo.setHoraPartida(service.findOne(voo).getHoraPartida());		
 		
-		//SETA A HORA DE CHEGADA DO AVIÃO 
-		voo.setHoraChegada(dateFormat.format(Calendar.getInstance().getTime()));
+		voo.setHoraChegada(hour.format(DateTimeFormatter.ofPattern("HH:mm:ss")));		
 		
-		//SETA O ESTADO EM QUE O AVIÃO SE ENCONTRA
-		voo.setStatus(Status.PARADO);
+		voo.setStatus(Status.PARADO);		
 		
-		//ATUALIZA NA BASE DE DADOS
-		service.atualizar(voo);
+		service.update(voo);
 	}
 
 	/**
-	 * Rest para buscar todos os voo
+	 * Rest to find all voo
 	 * @return
 	 */
-	@RequestMapping(value = "/buscarTodos", method = RequestMethod.GET, produces = "application/json")
-	public List<Voo> buscarTodos() {
+	@RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "application/json")
+	public List<Voo> getAll() {		
 		
-		//RETORNA UMA LISTA COM TODOS OS VOO
-		return service.buscarTodos();
+		return service.findAll();
 	}
 
 	/**
-	 * Rest para excluir um voo
+	 * Rest to delete one voo
 	 * @param voo
 	 */
-	@RequestMapping(value = "/remover", method = RequestMethod.DELETE, produces = "application/json")
-	public void remover(@RequestBody Voo voo) {
+	@RequestMapping(value = "/remove", method = RequestMethod.DELETE, produces = "application/json")
+	public void remove(@RequestBody Voo voo) {
 		
-		//REMOVE UM VOO
-		service.remover(voo);
+		service.remove(voo);
 	}
 
 }

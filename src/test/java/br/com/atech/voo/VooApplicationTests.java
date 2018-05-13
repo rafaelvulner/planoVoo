@@ -13,11 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.atech.voo.controller.VooController;
-import br.com.atech.voo.entidade.Aviao;
-import br.com.atech.voo.entidade.Piloto;
-import br.com.atech.voo.entidade.Status;
-import br.com.atech.voo.entidade.Voo;
-import br.com.atech.voo.servico.VooService;
+import br.com.atech.voo.domain.Aviao;
+import br.com.atech.voo.domain.Piloto;
+import br.com.atech.voo.domain.Status;
+import br.com.atech.voo.domain.Voo;
+import br.com.atech.voo.service.VooService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,9 +37,9 @@ public class VooApplicationTests {
 	@Test
 	public void retornarTodosOsVoo() {
 	
-		controller.buscarTodos();
+		controller.getAll();
         
-        verify(service).buscarTodos();
+        verify(service).findAll();
 	}
 	
 	@Test
@@ -63,18 +63,18 @@ public class VooApplicationTests {
 		voo.setAviao(aviao);
 		voo.setPiloto(piloto);
 		
-		controller.saida(voo);
+		controller.exit(voo);
 
-        verify(service).salvar(any(Voo.class));
+        verify(service).save(any(Voo.class));
 		
 		
 	}
 	
 	@Test
 	public void excluirVoo(){
-		controller.remover(any(Voo.class));
+		controller.remove(any(Voo.class));
 		
-		verify(service).remover(any(Voo.class));
+		verify(service).remove(any(Voo.class));
 		
 	}
 	}

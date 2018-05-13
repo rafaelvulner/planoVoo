@@ -1,4 +1,4 @@
-package br.com.atech.voo.entidade;
+package br.com.atech.voo.domain;
 
 public enum Status {
 	VOANDO, PARADO;
